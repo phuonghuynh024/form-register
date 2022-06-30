@@ -50,10 +50,15 @@
   <script>
     Validator({
       form: '#form-1',
+      errorMessage: '.form-message',
       rules: [
         Validator.isRequired('#fullname'),
-        Validator.isEmail('#email'),
         Validator.isRequired('#email'),
+        Validator.isEmail('#email'),
+        Validator.isPassword('#password', 6),
+        Validator.password_confirmation('#password_confirmation', () => {
+          return document.querySelector('#form-1 #password').value
+        })
       ]
     });
   </script>
