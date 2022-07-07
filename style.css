@@ -104,4 +104,8 @@
   .spacer {
     margin-top: 36px;
   }
-  
+  .gender{
+    height: 40px;
+    text-align: left;
+    font-size: 14px;
+  }

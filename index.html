@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
-  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="./style.css">
 </head>
 
 <body>
@@ -42,24 +42,61 @@
         <span class="form-message"></span>
       </div>
 
+      <div class="form-group">
+        <label for="country" class="form-label">Tỉnh/TP</label>
+        <select id="country" name = "country" class="form-control">
+          <option value="">-- Vui Lòng Chọn --</option>
+          <option value="hn">Hà Nội</option>
+          <option value="dn">Đà Nẵng</option>
+          <option value="hcm">Hồ Chí Minh</option>
+        </select>
+        <span class="form-message"></span>
+      </div>
+
+      <div class="form-group">
+        <label for="gender" class="form-label">Giới Tính</label>
+        <div class="gender"><input type="radio" name="gender" value="male"> Nam</div>
+        <div class="gender"><input type="radio" name="gender" value="female"> Nữ</div>
+        <div class="gender"><input type="radio" name="gender" value="other"> Khác</div>
+        <span class="form-message"></span>
+      </div>
+
+      <div class="form-group">
+        <label for="device" class="form-label">Thiết Bị</label>
+        <div class="gender"><input type="checkbox" name="device" value="desktop"> Máy tính Bàn</div>
+        <div class="gender"><input type="checkbox" name="device" value="laptop"> Laptop</div>
+        <div class="gender"><input type="checkbox" name="device" value="cellphone"> Điện Thoại</div>
+        <span class="form-message"></span>
+      </div>
+
       <button class="form-submit">Đăng ký</button>
     </form>
 
   </div>
-  <script src="/vadidation.js"></script>
+  <script src="vadidation.js"></script>
   <script>
     Validator({
       form: '#form-1',
+      formGroup: '.form-group',
       errorMessage: '.form-message',
       rules: [
-        Validator.isRequired('#fullname'),
-        Validator.isRequired('#email'),
-        Validator.isEmail('#email'),
-        Validator.isPassword('#password', 6),
-        Validator.password_confirmation('#password_confirmation', () => {
-          return document.querySelector('#form-1 #password').value
-        })
-      ]
+      //   Validator.isRequired('#fullname'),
+      //   Validator.isRequired('#email'),
+      //   Validator.isEmail('#email'),
+      //   Validator.isRequired('#password'),
+      //   Validator.isPassword('#password', 6),
+      //   Validator.isRequired('#password_confirmation'),
+      //   Validator.password_confirmation('#password_confirmation', () => {
+      //     return document.querySelector('#form-1 #password').value
+      //   }),
+      
+      // Validator.isRequired('#country'),
+      // Validator.isRequired('input[name="gender"]'),
+      Validator.isRequired('input[name="device"]'),
+      ],
+      onSubmit(data) {
+        console.log(data);
+      }
     });
   </script>
 </body>
