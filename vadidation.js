@@ -11,6 +11,7 @@ function Validator(options) {
         }
     }
 
+
     vadidate = (input, rule) => {
 
         var errorElement = getParent(input, options.formGroup).querySelector(options.errorMessage);
@@ -88,6 +89,7 @@ function Validator(options) {
                         default:
                             data[inputElememt.name] = inputElememt.value;
                     }
+                    
                     
                     var isValid = vadidate(inputElememt, rule)
                     if (isValid) {
