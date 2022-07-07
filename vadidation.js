@@ -2,6 +2,7 @@ function Validator(options) {
 
     var selectorRule = {}
 
+
     getParent = (element, selector) => {
         while (element.parentElement) {
             if (element.parentElement.matches(selector)) {
@@ -13,7 +14,6 @@ function Validator(options) {
 
 
     vadidate = (input, rule) => {
-
         var errorElement = getParent(input, options.formGroup).querySelector(options.errorMessage);
         //var errorMessage = rule.test(input.value);
         var errorMessage
@@ -37,16 +37,20 @@ function Validator(options) {
 
 
         if (errorMessage) {
-            input.value = '';
+            switch (input.type) {
+                case "checkbox":
+                case "radio":
+                    break
+                default:
+                    input.value = '';
+            }
             errorElement.innerText = errorMessage;
-            getParent(input, options.formGroup).classList.add('invalid');
-            isFormValid = false
+            getParent(input, options.formGroup).classList.add('invalid')
         } else {
             errorElement.innerText = '';
             getParent(input, options.formGroup).classList.remove('invalid');
         }
-
-        return !!errorMessage;
+        return !errorMessage
     };
 
 
@@ -59,25 +63,20 @@ function Validator(options) {
 
             e.preventDefault();
 
-            var data = {}
-            var isFormValid = true
+            var data = {} 
 
+            var isFormValid = true;
 
             options.rules.forEach(function (rule) {
 
                 var inputElememts = document.querySelectorAll(rule.selector);
-
-
                 Array.from(inputElememts).forEach(function (inputElememt) {
-                    var result = []
                     switch(inputElememt.type){
                         case "checkbox":
-                            
-                            if (!inputElememt.matches(':checked')) return null
+                            if (!inputElememt.matches(':checked')) break
                             if(!Array.isArray(data[inputElememt.name])){
                                 data[inputElememt.name] = [inputElememt.value]
                             }else{
-                                console.log('aaa');
                                 data[inputElememt.name].push(inputElememt.value)
                             }
                             break
@@ -89,17 +88,12 @@ function Validator(options) {
                         default:
                             data[inputElememt.name] = inputElememt.value;
                     }
-                    
-                    
                     var isValid = vadidate(inputElememt, rule)
-                    if (isValid) {
+
+                    if(!isValid){
                         isFormValid = false
                     }
                 })
-
-
-
-
             })
 
             if (isFormValid) {
